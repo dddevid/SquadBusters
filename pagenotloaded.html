@@ -1,41 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-    </style>
 </head>
-<body>
-    <h1 id="errorMessage">Something went wrong</h1>
-
+<body onload="getUserCountry()">
     <script>
-        // Function to fetch user's country based on IP
         function getUserCountry() {
-            fetch('http://ip-api.com/json/')
+            // Richiesta per ottenere l'indirizzo IP dell'utente
+            fetch('https://api64.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
-                    var country = data.countryCode.toLowerCase();
-                    var errorMessage = errorMessages[country] || "Something went wrong";
-                    document.getElementById("errorMessage").innerText = errorMessage;
+                    const ip = data.ip;
+
+                    // Richiesta per ottenere le informazioni sull'indirizzo IP dell'utente
+                    fetch(`http://ip-api.com/json/${ip}`)
+                        .then(response => response.json())
+                        .then(ipData => {
+                            const country = ipData.countryCode.toLowerCase();
+                            const errorMessage = errorMessages[country] || "Qualcosa è andato storto";
+                            alert(errorMessage); // Cambia questo con il tuo codice per visualizzare il messaggio di errore
+                        })
+                        .catch(error => {
+                            console.error('Si è verificato un errore:', error);
+                            const errorMessage = errorMessages['en'] || "Something went wrong";
+                            alert(errorMessage); // Cambia questo con il tuo codice per visualizzare il messaggio di errore predefinito
+                        });
                 })
-                .catch(error => {
-                    console.error('Error fetching user country:', error);
-                    // If there's an error fetching the user's country, default to English
-                    document.getElementById("errorMessage").innerText = errorMessages['en'];
-                });
+                .catch(error => console.error('Si è verificato un errore:', error));
         }
 
-        // Object mapping language codes to error messages
-        var errorMessages = {
+        // Mappa i codici di lingua ai messaggi di errore
+        const errorMessages = {
             "en": "Something went wrong",
             "it": "Qualcosa è andato storto",
             "es": "Algo salió mal",
@@ -63,11 +60,8 @@
             "uk": "Щось пішло не так",
             "he": "משהו השתבש",
             "sq": "Diçka shkoi keq",
-            // Add more languages and error messages as needed
+            // Aggiungi altre lingue e messaggi di errore se necessario
         };
-
-        // Call the function when the page loads
-        window.onload = getUserCountry;
     </script>
 </body>
 </html>
