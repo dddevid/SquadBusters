@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>Sito web di esempio</title>
 </head>
 <body onload="getUserCountry()">
     <script>
@@ -15,10 +15,10 @@
                     const ip = data.ip;
 
                     // Richiesta per ottenere le informazioni sull'indirizzo IP dell'utente
-                    fetch(`http://ip-api.com/json/${ip}`)
+                    fetch(`https://ipapi.co/${ip}/json/`)
                         .then(response => response.json())
                         .then(ipData => {
-                            const country = ipData.countryCode.toLowerCase();
+                            const country = ipData.country.toLowerCase();
                             const errorMessage = errorMessages[country] || "Qualcosa è andato storto";
                             alert(errorMessage); // Cambia questo con il tuo codice per visualizzare il messaggio di errore
                         })
