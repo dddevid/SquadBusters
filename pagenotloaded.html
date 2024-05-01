@@ -20,10 +20,10 @@
     <script>
         // Function to fetch user's country based on IP
         function getUserCountry() {
-            fetch('https://ip-api.com/json/')
+            fetch('https://freegeoip.app/json/')
                 .then(response => response.json())
                 .then(data => {
-                    var country = data.countryCode.toLowerCase();
+                    var country = data.country_code.toLowerCase();
                     var errorMessage = errorMessages[country] || "Something went wrong";
                     document.getElementById("errorMessage").innerText = errorMessage;
                 })
