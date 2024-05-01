@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect App</title>
+    <script>
+        // Function to detect the device
+        function detectDevice() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Android detection
+            if (/android/i.test(userAgent)) {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.supercell.squad&pcampaignid=web_share";
+            }
+
+            // iPhone detection
+            else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = "https://apps.apple.com/it/app/squad-busters/id1668983788";
+            }
+            
+            // Default redirect
+            else {
+                // Default redirect in case the device is neither Android nor iPhone
+                window.location.href = "https://example.com";
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = detectDevice;
+    </script>
+</head>
+<body>
+    <!-- You can add some content here if you want -->
+    <p>Loading...</p>
+</body>
+</html>
